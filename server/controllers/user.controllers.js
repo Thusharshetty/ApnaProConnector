@@ -62,3 +62,75 @@ export const login=async(req,res)=>{
         return res.status(500).json({message:'Server error',error:error.message})
     }
 }
+
+export const uploadProfilePic=async(req,res)=>{
+     const {token}=req.body;
+        if(!token){
+            return res.status(400).json({message:'Token is required'})
+        }
+    try{
+       const user=await User.findOne({token});
+       if(!user){
+        return res.status(404).json({message:'User not found'})
+       }
+
+         if(!req.file){
+            return res.status(400).json({message:'No file uploaded'})
+         }
+            user.profilePicture=req.file.filename;
+            await user.save();
+            return res.status(200).json({message:'Profile picture uploaded successfully',profilePicture:req.file.path})
+    }catch(error){
+        return res.status(500).json({message:'Server error',error:error.message})
+    }
+
+}
+
+export const updateUserprofile=async(req,res)=>{
+    try{
+        const {token,...newUserData}=req.body;
+        if(!token){
+            return res.status(400).json({message:'Token is required'})
+        }
+        const user=await User.findOne({token});
+        if(!user){
+            return res.status(404).json({message:'User not found'})
+        }
+        const {userName,email}=newUserData;
+        if(userName){
+            const existingUserName=await User.findOne({userName});
+            if(existingUserName && existingUserName._id.toString()!==user._id.toString()){
+                return res.status(400).json({message:'Username already taken'})
+            }
+        }
+        if(email){
+            const existingEmail=await User.findOne({email});
+            if(existingEmail && existingEmail._id.toString()!==user._id.toString()){
+                return res.status(400).json({message:'Email already taken'})
+            }
+        }
+        Object.assign(user,newUserData);
+        await user.save();
+        return res.status(200).json({message:'Profile updated successfully'})
+
+    }catch(error){
+        return res.status(500).json({message:'Server error',error:error.message})
+    }
+}
+
+export const getUserAndProfile=async(req,res)=>{
+    try{
+        const {token}=req.body;
+        if(!token){
+            return res.status(400).json({message:'Token is required'})
+        }
+        const user=await User.findOne({token});
+        if(!user){
+            return res.status(404).json({message:'User not found'})
+        }
+        const userprofile=await Profile.findOne({userId:user._id}).populate('userId','name userName email profilePicture');
+        return res.status(200).json({profile:userprofile})
+    }catch(error){
+        return res.status(500).json({message:'Server error',error:error.message})
+    }
+}
