@@ -3,6 +3,49 @@ import User from "../models/user.model.js";
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 
+import fs from 'fs';
+import PDFDocument from 'pdfkit';
+
+const convertUserDataToPDF=async(userData)=>{
+    const doc=new PDFDocument();
+    const outputPath=crypto.randomBytes(16).toString('hex')+'.pdf';
+    const stream=fs.createWriteStream("uploads/"+outputPath);
+    doc.pipe(stream);
+
+    doc.image(`uploads/${userData.userId.profilePicture}`,{align:'center',width:100});
+    doc.fontSize(14).text(`Name: ${userData.userId.name}`);
+    doc.fontSize(14).text(`Username: ${userData.userId.userName}`);
+    doc.fontSize(14).text(`Email: ${userData.userId.email}`);
+    doc.fontSize(14).text(`Bio: ${userData.bio || 'N/A'}`);
+    doc.fontSize(14).text(`Current Position: ${userData.currentPost || 'N/A'}`);
+
+    if(userData.pastWork.length>0){
+        doc.fontSize(16).text('Past Work Experience:',{underline:true});
+        userData.pastWork.forEach((work,index)=>{
+            doc.fontSize(14).text(`${index+1}. Company: ${work.company}`);
+            doc.fontSize(14).text(`   Position: ${work.position}`);
+            doc.fontSize(14).text(`   Years: ${work.years}`);
+        });
+    }else{
+        doc.fontSize(14).text('Past Work Experience: N/A');
+    }
+
+    if(userData.education.length>0){
+        doc.fontSize(16).text('Education:',{underline:true});
+        userData.education.forEach((edu,index)=>{
+            doc.fontSize(14).text(`${index+1}. School: ${edu.school}`);
+            doc.fontSize(14).text(`   Degree: ${edu.degree}`);
+            doc.fontSize(14).text(`   Field of Study: ${edu.fieldOfStudy}`);
+        });
+    }else{
+        doc.fontSize(14).text('Education: N/A');
+    }
+
+    doc.end();
+
+    return outputPath;
+}
+
 
 
 
@@ -164,6 +207,23 @@ export const getAllUserProfile=async(req,res)=>{
             return res.status(404).json({message:'No profiles found'})
         }
         return res.status(200).json({profiles:profiles})
+    }catch(error){
+        return res.status(500).json({message:'Server error',error:error.message})
+    }
+}
+
+export const downloadProfile=async(req,res)=>{
+    try{
+        const userId=req.query.id;
+        if(!userId){
+            return res.status(400).json({message:'User ID is required'})
+        }
+        const profile=await Profile.findOne({userId}).populate('userId','name userName email profilePicture');
+        if(!profile){
+            return res.status(404).json({message:'Profile not found'})
+        }
+        const outputPath=await convertUserDataToPDF(profile);
+        return res.status(200).json({message:'Profile downloaded successfully', outputPath});
     }catch(error){
         return res.status(500).json({message:'Server error',error:error.message})
     }
