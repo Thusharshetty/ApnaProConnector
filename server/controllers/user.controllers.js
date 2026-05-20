@@ -156,3 +156,15 @@ export const updateProfileData=async(req,res)=>{
         return res.status(500).json({message:'Server error',error:error.message})
     }
 }
+
+export const getAllUserProfile=async(req,res)=>{
+    try{
+        const profiles=await Profile.find().populate('userId','name userName email profilePicture');
+        if(!profiles){
+            return res.status(404).json({message:'No profiles found'})
+        }
+        return res.status(200).json({profiles:profiles})
+    }catch(error){
+        return res.status(500).json({message:'Server error',error:error.message})
+    }
+}
