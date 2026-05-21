@@ -1,20 +1,20 @@
-import mongoose, { connection } from "mongoose";
+import mongoose from "mongoose";
 
-const connectionSchema=new mongoose.Schema({
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
+const connectionSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
-    connectionId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
+    connectionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
-    status_accepted:{
-        type:Boolean,
-        default:null   
+    status_accepted: {
+        type: Boolean,
+        default: null
     },
 });
 
-const Connection=mongoose.model('Connection',connectionSchema);
+const Connection = mongoose.model('Connection', connectionSchema);
 
 export default Connection;
