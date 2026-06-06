@@ -3,22 +3,13 @@ import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
+import UserLayout from "./layout/Navbar";
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export default function Home() {
   const route = useRouter();
   return (
-    <>
+    <UserLayout>
       <div className={`py-5 px-5 ${styles.container} border-1 border-dark`}>
         <div className={`d-flex align-items-center justify-content-center gap-5 p-5 mx-auto justify-content-between ${styles.mainContainer}`}>
 
@@ -36,6 +27,6 @@ export default function Home() {
 
         </div>
       </div>
-    </>
+    </UserLayout>
   );
 }

@@ -1,0 +1,39 @@
+.heading span{
+    cursor: pointer;
+    font-family: poppins;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.loginBtn{
+    background-color:#0077B5;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: inter;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+}
+
+.loginBtn:hover {
+    background-color: #005582;
+}
+.signupBtn{
+    background-color: #0A66C2;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: inter;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+}
+.signupBtn:hover {
+    background-color: #004182;
+}

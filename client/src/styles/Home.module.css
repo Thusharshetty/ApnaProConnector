@@ -8,7 +8,7 @@
     padding: 2rem;
 }
 
-/* MAIN CONTAINER */
+
 
 .mainContainer {
     width: 100%;
@@ -16,7 +16,7 @@
     animation: fadeIn 1s ease;
 }
 
-/* LEFT SIDE */
+
 
 .mainContainer__left {
     flex: 1;
@@ -46,12 +46,12 @@
     line-height: 1.6;
 }
 
-/* BUTTON */
+
 
 .buttonJoin {
     background: linear-gradient(135deg, #0A66C2, #004182);
     border: none;
-    padding: 14px 28px;
+    padding: 14px 30px;
     border-radius: 16px;
     cursor: pointer;
     width: fit-content;
@@ -59,7 +59,7 @@
     transition: all 0.3s ease;
     color: white;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 700;
     font-family: poppins;
 }
 
@@ -72,7 +72,7 @@
     transform: scale(0.97);
 }
 
-/* RIGHT SIDE */
+
 
 .mainContainer__right {
     flex: 1;
@@ -82,7 +82,6 @@
     position: relative;
 }
 
-/* GLOW EFFECT */
 
 .mainContainer__right::before {
     content: "";
@@ -95,12 +94,14 @@
     z-index: 0;
 }
 
-/* IMAGE */
+
 
 .mainContainer__right img {
     width: 100%;
-   max-width: 480px;
+    max-width: 480px;
     min-width: 350px;
+    max-height: 400px;
+    min-height: 300px;
     height: auto;
     object-fit: contain;
     position: relative;
@@ -115,7 +116,7 @@
     transform: scale(1.03);
 }
 
-/* FADE ANIMATION */
+
 
 @keyframes fadeIn {
     from {
@@ -129,7 +130,7 @@
     }
 }
 
-/* FLOATING IMAGE */
+
 
 @keyframes floatImage {
     0% {
@@ -145,7 +146,7 @@
     }
 }
 
-/* RESPONSIVE */
+
 
 @media screen and (max-width: 992px) {
 
