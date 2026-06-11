@@ -4,10 +4,19 @@ import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import UserLayout from "./layout/Navbar";
+import { useEffect } from "react";
 
 
 export default function Home() {
   const route = useRouter();
+
+
+      useEffect(() => {
+          const token = localStorage.getItem("token");
+          if (token) {
+              route.push("/dashboard");
+          }
+      }, []);
   return (
     <UserLayout>
       <div className={`py-5 px-5 ${styles.container} border-1 border-dark`}>
