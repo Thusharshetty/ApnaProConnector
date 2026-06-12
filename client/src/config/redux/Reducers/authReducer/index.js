@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginuser, registeruser } from "@/config/redux/Action/AuthAction/index"
+import { getAboutUser, loginuser, registeruser } from "../../Action/AuthAction";  
 
 const initialState = {
     user: [],
@@ -53,6 +53,13 @@ const authSlice = createSlice({
                 state.isLoading = false,
                     state.isError = true,
                     state.message = action.payload;
+            })
+            .addCase(getAboutUser.fulfilled,(state,action) => {
+                state.isLoading = false,
+                state.isError = false,
+                state.isSuccess = true,
+                state.profileFetched = true,
+                state.user = action.payload.profile
             })
     }
 });

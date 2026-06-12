@@ -164,7 +164,7 @@ export const updateUserprofile = async (req, res) => {
 
 export const getUserAndProfile = async (req, res) => {
     try {
-        const { token } = req.body;
+        const { token } = req.query;
         if (!token) {
             return res.status(400).json({ message: 'Token is required' })
         }

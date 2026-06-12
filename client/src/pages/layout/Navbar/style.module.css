@@ -37,3 +37,9 @@
 .signupBtn:hover {
     background-color: #004182;
 }
+.welcome{
+    font-family: poppins;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0;
+}
