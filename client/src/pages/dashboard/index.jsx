@@ -14,22 +14,14 @@ export default function Dashboard() {
       const dispatch = useDispatch();
       const postsState = useSelector((state) => state.posts);
       const authState = useSelector((state) => state.auth);
-      const [isTokenThere, setIsTokenThere] = useState(false);
 
- useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        route.push("/login");
-    }
-    setIsTokenThere(true);
-}, []);
 
 useEffect(() => {
-    if (isTokenThere) {
+    if (authState.isTokenThere) {
         dispatch(getAllPosts());
         dispatch(getAboutUser({token : localStorage.getItem("token")}));
     }
-},[isTokenThere]);
+},[authState.isTokenThere]);
 
 
     return (

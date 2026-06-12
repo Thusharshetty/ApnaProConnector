@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './styles.module.css'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux';
+import { setTokenIsThere } from '@/config/redux/Reducers/authReducer';
 
 export default function DashBoardLayout({ children }) {
     const route=useRouter();
+    const dispatch=useDispatch();
+     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            route.push("/login");
+        }
+        dispatch(setTokenIsThere());
+        
+    }, []);
     return (
         <div className='container mt-4'>
             <div className={`row ${styles.home_container}`}>
