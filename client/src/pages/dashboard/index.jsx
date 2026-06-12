@@ -6,6 +6,7 @@ import { getAllPosts } from "@/config/redux/Action/PostAction/index"
 import { toast } from "react-toastify";
 import { getAboutUser } from "@/config/redux/Action/AuthAction";
 import UserLayout from "../layout/Navbar";
+import DashBoardLayout from "../layout/DashboardLayout";
 
 
 export default function Dashboard() {
@@ -33,8 +34,11 @@ useEffect(() => {
 
     return (
         <UserLayout>
-           {authState.profileFetched && <h1>Welcome, {authState.user.userId.name}!</h1>}
-            <h1>Dashboard</h1>
+           <DashBoardLayout>
+             <div>
+                <h1>DashBoard</h1>
+             </div>
+           </DashBoardLayout>
         </UserLayout>
     )
 }
