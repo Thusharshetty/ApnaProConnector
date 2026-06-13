@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import UserLayout from '../layout/Navbar'
 import DashBoardLayout from '../layout/DashboardLayout'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '@/config/redux/Action/AuthAction';
+import { getAboutUser, getAllUsers } from '@/config/redux/Action/AuthAction';
 
 export default function Discover() {
 
@@ -10,6 +10,13 @@ export default function Discover() {
     const authState=useSelector((state)=>state.auth);
 
     useEffect(()=>{
+        const token = localStorage.getItem("token");
+
+        // Ensure the individual profile data is requested if the user reloads here
+        if (token && !authState.profileFetched) {
+       dispatch(getAboutUser({ token }));
+     }
+
         if(!authState. all_profileFetched){
             dispatch(getAllUsers());
         }
