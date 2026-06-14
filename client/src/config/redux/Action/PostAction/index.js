@@ -37,4 +37,39 @@ export const createPost =createAsyncThunk("post/createPosts",
             return thunkAPI.rejectWithValue(error.message);
         }
     }
+);
+
+export const deletePost=createAsyncThunk("post/deletePost",
+    async(post_id,thunkAPI)=>{
+        try{
+            const response=await clientServer.delete("post/delete",{
+                data:{
+                    token:localStorage.getItem("token"),
+                    post_id:post_id.post_id
+                }
+            });
+            return thunkAPI.fulfillWithValue(response.data);
+
+        }catch(e){
+            return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");
+        }
+    }
+);
+
+export const incrementLike=createAsyncThunk("post/incrementLike",
+    async(post_id,thunkAPI)=>{
+        try{
+            const response=await clientServer.post("posts/like",{
+              
+                    token:localStorage.getItem("token"),
+                    post_id:post_id.post_id
+    
+
+            })
+            return thunkAPI.fulfillWithValue(response.data);
+
+        }catch(e){
+            return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");
+        }
+    }
 )
