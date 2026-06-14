@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllPosts } from  "@/config/redux/Action/PostAction/index"
+import { createPost, getAllPosts } from  "@/config/redux/Action/PostAction/index"
 
 const initialState ={
     posts:[],
@@ -32,7 +32,7 @@ const postSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = true;
             state.isError = false;
-            state.posts = action.payload.posts;
+            state.posts = action.payload.reverse();
             state.postFetched = true;
         })
         .addCase(getAllPosts.rejected,(state,action)=>{
@@ -40,6 +40,18 @@ const postSlice = createSlice({
             state.isError = true;
             state.isSuccess = false;
             state.message = action.payload || "something went wrong";
+        })
+        .addCase(createPost.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.message=action.payload;
+        })
+        .addCase(createPost.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload;
         })
     }
 });

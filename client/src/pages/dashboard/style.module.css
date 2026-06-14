@@ -63,13 +63,61 @@
     box-shadow: 0 0 5px rgba(10,102,194,0.3);
 }
 .UploadFile{
-    position:absolute;
-   right: 0;
-   bottom: -45px;
-   background-color: rgba(10, 102, 194, 0.3);
-   color: white;
-   border-radius: 10px;
-   padding-inline: 1.2rem;
-   padding-block: 0.8rem;
-   cursor: pointer;
+    position: absolute;
+    right: 0;
+    bottom: -60px;
+    width: 120px;
+    height: 45px;
+    background: linear-gradient(135deg,#0A66C2,#0077B5);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: poppins;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 6px 15px rgba(10,102,194,.25);
+}
+
+.UploadFile:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(10,102,194,.35);
+}
+.postsContainer{
+    margin-top: 1.25rem;
+}
+.singleCard{
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 1px solid rgba(157, 127, 127, 0.944);
+}
+.wraper{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+.singleCard_profile{
+    display: flex;
+    align-items: flex-start;
+    gap:1.2rem;
+    padding: 1.25rem;
+    padding-right: 3.4rem;
+}
+.singleCard_profile>img{
+    width: 10%;
+    border-radius: 50%;
+}
+.single_cardImage{
+    width: 100%;
+    padding-top: 0.6rem;
+    height: fit-content;
+    overflow: hidden;
+}
+.single_cardImage>img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px;
 }
