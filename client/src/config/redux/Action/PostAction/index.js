@@ -50,7 +50,7 @@ export const deletePost=createAsyncThunk("post/deletePost",
             });
             return thunkAPI.fulfillWithValue(response.data);
 
-        }catch(e){
+        }catch(error){
             return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");
         }
     }
@@ -68,7 +68,23 @@ export const incrementLike=createAsyncThunk("post/incrementLike",
             })
             return thunkAPI.fulfillWithValue(response.data);
 
-        }catch(e){
+        }catch(error){
+            return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");
+        }
+    }
+);
+
+export const getAllComments =createAsyncThunk("post/getAllComments",
+    async({post_id},thunkAPI)=>{
+        try{
+            const response= await clientServer.get(`comments/${post_id}`,{
+                params:{
+                    post_id
+                }
+            });
+            return thunkAPI.fulfillWithValue({comments:response.data,post_id});
+
+        }catch(error){
             return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");
         }
     }

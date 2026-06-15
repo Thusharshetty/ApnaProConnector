@@ -1,6 +1,7 @@
 import Comment from "../models/comments.model.js";
 import Post from "../models/posts.model.js";
 import User from "../models/user.model.js";
+import mongoose from 'mongoose';
 
 
 export const activeCheck=(req,res)=>{
@@ -92,15 +93,31 @@ export const commentPost= async (req,res)=>{
     }
 };
 
-export const getComments_post= async (req,res)=>{
-    try{
-        const {post_id}=req.params;
-        const comments= await Comment.find({postId:post_id}).populate('userId','name username email profilePicture');
-        return res.status(200).json(comments)
-    }catch(error){
-        return res.status(500).json({message:'Error fetching comments'})
+
+export const getComments_post = async (req, res) => {
+    try {
+        const { post_id } = req.params;
+        if (!post_id || !mongoose.Types.ObjectId.isValid(post_id)) {
+            return res.status(400).json({ message: "Invalid or missing Post ID format" });
+        }
+
+        const post = await Post.findById(post_id);
+        if (!post) {
+            return res.status(404).json({ message: "Post Not Found" });
+        }
+
+        const comments = await Comment.find({ postId: post_id }).populate('userId', 'name userName email profilePicture');
+        
+        if (comments.length === 0) {
+             return res.status(200).json({ comments: [], message: "No comments yet" });
+        }
+
+        return res.status(200).json({ comments });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error fetching comments' });
     }
 }
+
 
 export const deletecomment= async (req,res)=>{
     try{
