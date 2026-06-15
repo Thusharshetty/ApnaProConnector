@@ -6,9 +6,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #F3F2EF
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    background-color: #F3F2EF;
+  font-family:'Poppins',sans-serif;
 }
