@@ -1,6 +1,7 @@
 .HomeComponent {
     display: flex;
     justify-content: center;
+    animation: fadeIn .8s ease;
 }
 
 .CreatePostContainer {
@@ -415,4 +416,15 @@
     line-height: 1.8;
     font-size: .95rem;
     word-break: break-word;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

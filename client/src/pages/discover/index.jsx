@@ -27,7 +27,9 @@ export default function Discover() {
     <UserLayout>
       <DashBoardLayout>
         <div>
-          <h1>Discover</h1>
+          <h1 className={styles.discoverTitle}>
+    Discover
+</h1>
           <div className={styles.discoverContainer}>
             {authState.all_profileFetched && authState.allUser.filter(user => user.userId).map((user) => {
               return (
@@ -37,10 +39,10 @@ export default function Discover() {
                     alt=""
                   />
 
-                 <div>
-                   <h1>{user.userId.name}</h1>
+                  <div className={styles.userInfo}>
+                    <h2>{user.userId.name}</h2>
                     <p>@{user.userId.userName}</p>
-                 </div>
+                  </div>
                 </div>
               )
             })}
