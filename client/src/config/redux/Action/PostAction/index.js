@@ -88,4 +88,22 @@ export const getAllComments =createAsyncThunk("post/getAllComments",
             return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");
         }
     }
+);
+
+export const postComment=createAsyncThunk("post/postComment",
+    async(commentData,thunkAPI)=>{
+        try{
+            console.log( {post_id:commentData.post_id,
+                comment:commentData.body,})
+
+            const response= await clientServer.post("post/comment",{
+                token:localStorage.getItem("token"),
+                post_id:commentData.post_id,
+                comment:commentData.body,
+            });
+            return thunkAPI.fulfillWithValue(response.data);
+        }catch(error){
+             return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");
+        }
+    }
 )

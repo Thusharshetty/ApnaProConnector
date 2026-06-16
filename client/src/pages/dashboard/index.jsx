@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, deletePost, getAllComments, getAllPosts, incrementLike } from "@/config/redux/Action/PostAction/index"
+import { createPost, deletePost, getAllComments, getAllPosts, incrementLike, postComment } from "@/config/redux/Action/PostAction/index"
 
 import { toast } from "react-toastify";
 import { getAboutUser, getAllUsers } from "@/config/redux/Action/AuthAction";
@@ -154,11 +154,34 @@ export default function Dashboard() {
                                             <p>Be the first to reply 💬</p>
                                         </div>
                                     }
+                                    {postsState.comments.length !==0 &&
+                                       <div>
+                                            {postsState.comments.map((comment)=>{
+                                                 return (
+        <div className={styles.singleComment} key={comment._id}>
+            <div className={styles.singleComment__profileContainer}>
+                <img src={`${BASEEURL}/${comment.userId.profilePicture}`} alt="" />
+                <div>
+                    <p style={{ fontWeight: "bold", fontSize: "1.2rem" }}>{comment.userId.name}</p>
+                    <p>@{comment.userId.username}</p>
+                </div>
+            </div>
+            <p>
+                {comment.body}
+            </p>
+        </div>
+    )
+                                            })}
+                                       </div>
+                                    }
 
                                 </div>
                                 <div className={styles.postcommentContainer}>
                                     <input type="text" value={commentText} onChange={(e) => setCommentText(e.target.value)} placeholder="Comment" />
-                                    <div className={styles.postcommentContainer_Btn}>
+                                    <div className={styles.postcommentContainer_Btn} onClick={async ()=>{
+                                        await dispatch(postComment({post_id:postsState.postId,body:commentText}));
+                                        await dispatch(getAllComments({ post_id: postsState.postId}));
+                                    }}>
                                         Comment
                                     </div>
                                 </div>

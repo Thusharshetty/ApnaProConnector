@@ -112,7 +112,7 @@ export const getComments_post = async (req, res) => {
              return res.status(200).json({ comments: [], message: "No comments yet" });
         }
 
-        return res.status(200).json({ comments });
+        return res.status(200).json(comments.reverse());
     } catch (error) {
         return res.status(500).json({ message: 'Error fetching comments' });
     }
