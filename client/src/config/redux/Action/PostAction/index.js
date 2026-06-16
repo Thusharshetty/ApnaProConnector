@@ -82,7 +82,7 @@ export const getAllComments =createAsyncThunk("post/getAllComments",
                     post_id
                 }
             });
-            return thunkAPI.fulfillWithValue({comments:response.data,post_id});
+            return thunkAPI.fulfillWithValue({ comments: response.data.comments,post_id});
 
         }catch(error){
             return thunkAPI.rejectWithValue(error.message||"Something Went Wrong");

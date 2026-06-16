@@ -26,8 +26,11 @@ export default function Dashboard() {
 
         if (token) {
             dispatch(getAllPosts());
-            dispatch(getAboutUser({ token }));
+            
         }
+         if (token && !authState.profileFetched) {
+               dispatch(getAboutUser({ token }));
+         }
 
         if (!authState.all_profileFetched) {
             dispatch(getAllUsers());
@@ -67,7 +70,7 @@ export default function Dashboard() {
                             <div className={styles.postsContainer}>
                                 {postsState.posts.map((post) => {
                                     return (
-                                        <div id={post._id} className={styles.singleCard}>
+                                        <div key={post._id}className={styles.singleCard}>
                                             <div className={styles.singleCard_profile} id={post._id}>
                                                 <img src={`${BASEEURL}/${post.userId.profilePicture}`} alt={post?.userId?.name || "user profile"} />
 
@@ -106,7 +109,6 @@ export default function Dashboard() {
                                                         </div>
                                                         <div className={styles.singleOptions_optionsContainer} id={styles.commentButton}
                                                             onClick={() => {
-                                                                console.log("click")
                                                                 dispatch(getAllComments({ post_id: post._id }))
                                                             }}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -145,6 +147,13 @@ export default function Dashboard() {
                                 onClick={(e) => e.stopPropagation()}>
                                 <div className={styles.commentHeader}>
                                     <h2>Comments</h2>
+
+                                    <span
+                                        className={styles.closeBtn}
+                                        onClick={() => dispatch(resetPostID())}
+                                    >
+                                        ✕
+                                    </span>
                                 </div>
                                 <div className={styles.commentsList}>
 
@@ -154,33 +163,40 @@ export default function Dashboard() {
                                             <p>Be the first to reply 💬</p>
                                         </div>
                                     }
-                                    {postsState.comments.length !==0 &&
-                                       <div>
-                                            {postsState.comments.map((comment)=>{
-                                                 return (
-        <div className={styles.singleComment} key={comment._id}>
-            <div className={styles.singleComment__profileContainer}>
-                <img src={`${BASEEURL}/${comment.userId.profilePicture}`} alt="" />
-                <div>
-                    <p style={{ fontWeight: "bold", fontSize: "1.2rem" }}>{comment.userId.name}</p>
-                    <p>@{comment.userId.username}</p>
-                </div>
-            </div>
-            <p>
-                {comment.body}
-            </p>
-        </div>
-    )
+                                    {postsState.comments.length !== 0 &&
+                                        <div>
+                                            {postsState.comments.map((comment) => {
+                                                return (
+                                                    <div className={styles.singleComment} key={comment._id}>
+                                                        <div className={styles.singleComment__profileContainer}>
+                                                            <img
+                                                                src={`${BASEEURL}/${comment.userId.profilePicture}`}
+                                                                alt=""
+                                                            />
+
+                                                            <div className={styles.commentInfo}>
+                                                                <div className={styles.commentUserHeader}>
+                                                                    <h4>{comment.userId.name}</h4>
+                                                                    <span>@{comment.userId.userName}</span>
+                                                                </div>
+
+                                                                <p className={styles.commentBody}>
+                                                                    {comment.body}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
                                             })}
-                                       </div>
+                                        </div>
                                     }
 
                                 </div>
                                 <div className={styles.postcommentContainer}>
                                     <input type="text" value={commentText} onChange={(e) => setCommentText(e.target.value)} placeholder="Comment" />
-                                    <div className={styles.postcommentContainer_Btn} onClick={async ()=>{
-                                        await dispatch(postComment({post_id:postsState.postId,body:commentText}));
-                                        await dispatch(getAllComments({ post_id: postsState.postId}));
+                                    <div className={styles.postcommentContainer_Btn} onClick={async () => {
+                                        await dispatch(postComment({ post_id: postsState.postId, body: commentText }));
+                                        await dispatch(getAllComments({ post_id: postsState.postId }));
                                     }}>
                                         Comment
                                     </div>

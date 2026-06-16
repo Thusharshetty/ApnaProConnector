@@ -108,11 +108,9 @@ export const getComments_post = async (req, res) => {
 
         const comments = await Comment.find({ postId: post_id }).populate('userId', 'name userName email profilePicture');
         
-        if (comments.length === 0) {
-             return res.status(200).json({ comments: [], message: "No comments yet" });
-        }
-
-        return res.status(200).json(comments.reverse());
+    return res.status(200).json({
+    comments: comments.reverse(),
+});
     } catch (error) {
         return res.status(500).json({ message: 'Error fetching comments' });
     }

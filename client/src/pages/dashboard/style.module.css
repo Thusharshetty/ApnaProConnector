@@ -271,17 +271,11 @@
 }
 
 .postcommentContainer {
-    position: absolute;
-    bottom: 1.2rem;
-    left: 1.2rem;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    gap: 1rem;
-    border-top: 1px solid #e5e5e5;
-    padding-top: 1rem;
+    display:flex;
+    gap:1rem;
+    border-top:1px solid #eee;
+    padding-top:1rem;
+    background:white;
 }
 
 .postcommentContainer input {
@@ -319,21 +313,42 @@
     transform:translateY(-2px);
 }
 
-.commentHeader {
-    border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+.commentHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:1rem;
+    border-bottom:1px solid #eee;
 }
 
-.commentHeader h2 {
-    margin: 0;
-    font-family: poppins;
+.closeBtn{
+    font-size:1.5rem;
+    cursor:pointer;
+    color:gray;
+    transition:.3s;
 }
 
+.closeBtn:hover{
+    color:red;
+}
 .commentsList {
     flex: 1;
     overflow-y: auto;
     padding-right: .5rem;
+    padding-bottom: 50px;
+     background:#F8F9FA;
+}
+.commentsList::-webkit-scrollbar{
+    width:6px;
+}
+
+.commentsList::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.commentsList::-webkit-scrollbar-thumb{
+    background:#c5c5c5;
+    border-radius:10px;
 }
 .emptyComments{
     text-align:center;
@@ -347,4 +362,57 @@
 
 .emptyComments p{
     color:gray;
+}
+.singleComment{
+    background:white;
+    border-radius:18px;
+    padding:.9rem 1rem;
+    margin-bottom:1rem;
+    transition:.3s;
+    border:1px solid #eee;
+}
+.singleComment:hover{
+    box-shadow: 0 4px 15px rgba(0,0,0,.2);
+}
+
+.singleComment__profileContainer{
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.singleComment__profileContainer img{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.commentInfo{
+    flex: 1;
+}
+
+.commentUserHeader{
+    margin-bottom: .7rem;
+}
+
+.commentUserHeader h4{
+    margin:0;
+    font-size:1rem;
+    font-weight:600;
+    color:#1d2226;
+}
+
+.commentUserHeader span{
+    color:#777;
+    font-size:.9rem;
+}
+
+.commentBody{
+    margin-top: .6rem;
+    color: #444;
+    line-height: 1.8;
+    font-size: .95rem;
+    word-break: break-word;
 }

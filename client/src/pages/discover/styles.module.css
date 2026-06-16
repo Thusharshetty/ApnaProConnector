@@ -1,0 +1,23 @@
+.discoverContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 90%;
+    justify-content: center;
+   
+}
+.userCard{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-top: 0.8rem;
+    border: 1px solid rgb(214, 166, 166);
+    border-radius: 10px;
+    box-shadow: 10px 0 7px rgba(0,0,0,.2);
+    gap: 1.2rem;
+}
+.userCard> img{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
