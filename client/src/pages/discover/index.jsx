@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAboutUser, getAllUsers } from '@/config/redux/Action/AuthAction';
 import styles from "./styles.module.css";
 import { BASEEURL } from '@/config';
+import { useRouter } from 'next/router';
 
 export default function Discover() {
 
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
+  const router=useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,7 +35,10 @@ export default function Discover() {
           <div className={styles.discoverContainer}>
             {authState.all_profileFetched && authState.allUser.filter(user => user.userId).map((user) => {
               return (
-                <div key={user._id} className={styles.userCard}>
+                <div key={user._id} className={styles.userCard}
+                   onClick={()=>{
+                    router.push(`/view_profile/${user.userId.userName}`)
+                   }}>
                   <img
                     src={`${BASEEURL}/${user.userId.profilePicture}`}
                     alt=""

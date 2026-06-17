@@ -262,7 +262,7 @@ export const sendConnectionRequest = async (req, res) => {
     }
 }
 
-export const getMyConnectionsRequests = async (req, res) => {
+export const getConnectionsRequests = async (req, res) => {
     try {
         const { token } = req.body;
         if (!token) {
@@ -279,7 +279,7 @@ export const getMyConnectionsRequests = async (req, res) => {
     }
 }
 
-export const whoSentMeConnectionRequest = async (req, res) => {
+export const getMyConnectionRequest = async (req, res) => {
     try {
         const { token } = req.body;
         if (!token) {
@@ -323,5 +323,21 @@ export const acceptConnectionRequest = async (req, res) => {
 
     } catch (error) {
         return res.status(500).json({ message: 'Server error', error: error.message })
+    }
+}
+
+
+export const getUserPofileByUserName =async (req,res)=>{
+    const {username}=req.query;
+    try{
+        const user= await User.findOne({userName:username});
+        if(!user){
+            return res.status(404).json({message:"User Not Found"});
+        }
+        const userProfile= await Profile.findOne({userId:user._id}).populate('userId', 'name userName email profilePicture');
+        return res.status(200).json({profile:userProfile});
+
+    }catch(e){
+        return res.status(500).json({message:"Error while fetching the Profile"});
     }
 }

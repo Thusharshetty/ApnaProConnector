@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAboutUser, getAllUsers, loginuser, registeruser } from "../../Action/AuthAction";  
+import { getAboutUser, getAllUsers, getConnectionsRequest, getMyConnectionsRequest, loginuser, registeruser } from "../../Action/AuthAction";  
 
 const initialState = {
     user: null,
@@ -75,6 +75,18 @@ const authSlice = createSlice({
                 state.isError=false,
                 state.all_profileFetched=true,
                 state.allUser=action.payload.profiles
+            })
+            .addCase(getConnectionsRequest.fulfilled,(state,action)=>{
+                state.connections=action.payload
+            })
+            .addCase(getConnectionsRequest.rejected,(state,action)=>{
+                state.message=action.payload
+            })
+            .addCase(getMyConnectionsRequest.fulfilled,(state,action)=>{
+                state.connections=action.payload
+            })
+            .addCase(getMyConnectionsRequest.rejected,(state,action)=>{
+                state.message=action.payload
             })
     }
 });
