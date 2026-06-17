@@ -264,7 +264,7 @@ export const sendConnectionRequest = async (req, res) => {
 
 export const getConnectionsRequests = async (req, res) => {
     try {
-        const { token } = req.body;
+        const { token } = req.query;
         if (!token) {
             return res.status(400).json({ message: 'Token is required' })
         }
@@ -281,7 +281,7 @@ export const getConnectionsRequests = async (req, res) => {
 
 export const getMyConnectionRequest = async (req, res) => {
     try {
-        const { token } = req.body;
+        const { token } = req.query;
         if (!token) {
             return res.status(400).json({ message: 'Token is required' })
         }

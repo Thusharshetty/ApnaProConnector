@@ -7,6 +7,7 @@ import styles from './styles.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '@/config/redux/Action/PostAction';
 import { useRouter } from 'next/router';
+import { getConnectionsRequest, sendConnectionRequest } from '@/config/redux/Action/AuthAction';
 
 export default function ViewProfilePage({userProfile}) {
   const router=useRouter();
@@ -16,13 +17,13 @@ export default function ViewProfilePage({userProfile}) {
   const authState=useSelector((state)=>state.auth);
   const [userPosts,setUserPosts]=useState([]);
   const [isCurrentUserInConnection,setIsCurrentUserInConnection]=useState(false);
+  const [isConnectionNull,setIsConnectionNull]=useState(true);
 
   const getUserPost =async ()=>{
     await dispatch(getAllPosts());
-    // await dispatch(getConnectionsrequest({token:localStorage.getItem("token")}));
+    await dispatch(getConnectionsRequest({token:localStorage.getItem("token")}));
   }
   useEffect(() => {
-    console.log("VIEW FROM ushahdj");
     getUserPost();
   },[]);
 
@@ -38,6 +39,9 @@ export default function ViewProfilePage({userProfile}) {
    console.log(authState.connections,userProfile.userId._id);
    if(authState.connections.some(user=>user.connectionId._id === userProfile.userId._id)){
      setIsCurrentUserInConnection(true);
+     if(authState.connections.find(user=>user.connectionId._id === userProfile.userId._id).status_accepted === true){
+      setIsConnectionNull(false);
+     }
    }
    
  },[authState.connections]);
@@ -70,7 +74,7 @@ export default function ViewProfilePage({userProfile}) {
             {
               isCurrentUserInConnection ? (
                 <button className={styles.connectedButton}>
-                  Connected
+                 {isConnectionNull? "Pending" : "Connected"}
                 </button>
               ) : (
                 <button
@@ -130,6 +134,10 @@ export default function ViewProfilePage({userProfile}) {
 
           </div>
 
+        </div>
+
+        <div> 
+          <h4>Work History</h4>
         </div>
 
       </div>
