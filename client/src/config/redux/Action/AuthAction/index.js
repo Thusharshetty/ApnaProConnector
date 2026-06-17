@@ -76,7 +76,9 @@ export const sendConnectionRequest=createAsyncThunk(
             const response= await clientServer.post("user/send_connection_request",{
                 token:user.token,
                 receiverId:user.user_id
-            })
+            });
+
+            thunkAPI.dispatch(getConnectionsRequest({token:user.token}));
             return thunkAPI.fulfillWithValue(response.data);
         }catch(error){
             return thunkAPI.rejectWithValue(error.message.data.message);
