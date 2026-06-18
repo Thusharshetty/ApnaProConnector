@@ -36,7 +36,7 @@ export default function Login() {
         }
 
         if (authState.isError) {
-            toast.error(authState.message.message, {
+            toast.error(authState.message, {
                 toastId: "login-error"
             });
             dispatch(reset());

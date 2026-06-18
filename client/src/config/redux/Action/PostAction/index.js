@@ -27,9 +27,9 @@ export const createPost =createAsyncThunk("post/createPosts",
                 }
             });
             if(response.status ===200){
-                return thunkAPI.fulfillWithValue("Post Created");
+                return thunkAPI.fulfillWithValue(response.data.message);
             }else{
-                return thunkAPI.rejectWithValue(" Ooopps!!! Post Not Uploaded");
+                return thunkAPI.rejectWithValue(response.data.message);
             }
             
 
