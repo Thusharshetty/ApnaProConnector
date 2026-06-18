@@ -23,7 +23,9 @@ export default function UserLayout({ children }) {
                 Welcome, <span style={{ color: "#004182" }}>{authState.user.userId.name}!</span>
               </p>
             )}
-            <button className={styles.loginBtn}>Profile</button>
+            <button className={styles.loginBtn} onClick={()=>{
+              route.push("/profile")
+            } }>Profile</button>
             <p className={styles.logout}
               onClick={() => {
                 localStorage.removeItem("token");
