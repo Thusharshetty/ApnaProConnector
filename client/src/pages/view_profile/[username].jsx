@@ -123,7 +123,7 @@ export default function ViewProfilePage({userProfile}) {
 
         {(!userProfile.pastWork || userProfile.pastWork.length === 0) && (
     <div className={styles.workHistoryCard}>
-       <h3>No Work Experience Yet 🚀</h3>
+       <h3>No Work Experience Yet.. 🚀</h3>
     </div>
   )}
         {
