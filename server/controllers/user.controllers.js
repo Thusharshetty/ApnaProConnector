@@ -132,7 +132,7 @@ export const uploadProfilePic = async (req, res) => {
 
 export const updateUserprofile = async (req, res) => {
     try {
-        const { token, ...newUserData } = req.body;
+        const { token, newUserData } = req.body;
         if (!token) {
             return res.status(400).json({ message: 'Token is required' })
         }
@@ -140,19 +140,19 @@ export const updateUserprofile = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' })
         }
-        const { userName, email } = newUserData;
-        if (userName) {
-            const existingUserName = await User.findOne({ userName });
-            if (existingUserName && existingUserName._id.toString() !== user._id.toString()) {
-                return res.status(400).json({ message: 'Username already taken' })
-            }
-        }
-        if (email) {
-            const existingEmail = await User.findOne({ email });
-            if (existingEmail && existingEmail._id.toString() !== user._id.toString()) {
-                return res.status(400).json({ message: 'Email already taken' })
-            }
-        }
+        // const { userName, email } = newUserData;
+        // if (userName) {
+        //     const existingUserName = await User.findOne({ userName });
+        //     if (existingUserName && existingUserName._id.toString() !== user._id.toString()) {
+        //         return res.status(400).json({ message: 'Username already taken' })
+        //     }
+        // }
+        // if (email) {
+        //     const existingEmail = await User.findOne({ email });
+        //     if (existingEmail && existingEmail._id.toString() !== user._id.toString()) {
+        //         return res.status(400).json({ message: 'Email already taken' })
+        //     }
+        // }
         Object.assign(user, newUserData);
         await user.save();
         return res.status(200).json({ message: 'Profile updated successfully' })
