@@ -232,7 +232,40 @@
     box-shadow:0 18px 35px rgba(10,102,194,.35);
 }
 
+.addExperienceCard{
+    padding:1.3rem;
+    border:2px dashed #0A66C2;
+    border-radius:18px;
+    text-align:center;
+    color:#0A66C2;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
 
+.addExperienceCard:hover{
+    background:#0A66C2;
+    color:white;
+    transform:translateY(-5px);
+    box-shadow:0 15px 30px rgba(10,102,194,.2);
+}
+.addExperienceButton{
+    width:100%;
+    padding:15px;
+    border:2px dashed #0A66C2;
+    background:white;
+    color:#0A66C2;
+    border-radius:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.addExperienceButton:hover{
+    background:#0A66C2;
+    color:white;
+    transform:translateY(-4px);
+}
 .nameSection h1,
 .username{
     animation: fadeIn .8s ease;

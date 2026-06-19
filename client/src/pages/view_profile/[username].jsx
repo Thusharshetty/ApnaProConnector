@@ -127,7 +127,7 @@ export default function ViewProfilePage({userProfile}) {
     </div>
   )}
         {
-          userProfile.pastWork.map((work, index) => (
+          userProfile.pastWork.filter(work => work.position || work.company || work.years ).map((work, index) => (
             <div
               key={index}
               className={styles.workHistoryCard}
@@ -137,6 +137,34 @@ export default function ViewProfilePage({userProfile}) {
               <p>{work.company}</p>
 
               <span>{work.years}</span>
+            </div>
+          ))
+        }
+      </div>
+
+    </div>
+ <div className={styles.sectionCard}>
+      <h2>Education</h2>
+
+      <div className={styles.workHistoryContainer}>
+
+
+        {(!userProfile.education || userProfile.education.length === 0) && (
+    <div className={styles.workHistoryCard}>
+       <h3>Not updated about education..!! 🚀</h3>
+    </div>
+  )}
+        {
+          userProfile.education.map((edu, index) => (
+            <div
+              key={index}
+              className={styles.workHistoryCard}
+            >
+              <h3>{edu.school}</h3>
+
+              <p>{edu.degree}</p>
+
+              <span>{edu.fieldOfStudy}</span>
             </div>
           ))
         }

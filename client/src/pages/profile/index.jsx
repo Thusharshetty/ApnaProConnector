@@ -7,6 +7,7 @@ import { getAllPosts } from '@/config/redux/Action/PostAction';
 import styles from './style.module.css'
 import { BASEEURL, clientServer } from '@/config';
 import { current } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -53,7 +54,8 @@ export default function ProfilePage() {
 
 
   const updateProfilePicture = async (file) => {
-    const formData = new FormData();
+   try{
+     const formData = new FormData();
     formData.append("profile_pic", file);
     formData.append("token", localStorage.getItem("token"));
     const response = await clientServer.post("/upload_profile_pic", formData, {
@@ -61,16 +63,22 @@ export default function ProfilePage() {
         'Content-Type': 'multipart/form-data'
       }
     });
+    toast.success("Profile Picture Updated Sucessfully")
     dispatch(getAboutUser({ token: localStorage.getItem("token") }));
+   }catch(e){
+     toast.error("Error while Updating the Picture")
+   }
   }
 
   const updateProfileData = async () => {
-    const request = await clientServer.post("/user_update", {
+    try{
+      const request = await clientServer.post("/user_update", {
       token: localStorage.getItem("token"),
       newUserData: {
         name: userProfile?.userId?.name || ""
       }
     })
+    
     const res = await clientServer.post("/update_profile_data", {
       token: localStorage.getItem("token"),
       bio: userProfile.bio,
@@ -78,8 +86,70 @@ export default function ProfilePage() {
       pastWork: userProfile.pastWork,
       education: userProfile.education,
     });
+     toast.success("Profile data updated sucessfully")
     dispatch(getAboutUser({ token: localStorage.getItem("token") }));
+    }catch(e){
+      toast.error("Error while updating the profile data")
+    }
   }
+
+
+  const addExperience=()=>{
+    setUserProfile(prev=>({
+      ...prev,
+      pastWork:[
+        ...(prev.pastWork || []),
+        {
+                position: "",
+                company: "",
+                years: ""
+        }
+      ]
+    }))
+  }
+ const handleExperienceChange = (index, field, value) => {
+    setUserProfile(prev => {
+        const updatedPastWork = [...prev.pastWork];
+
+        updatedPastWork[index] = {
+            ...updatedPastWork[index],
+            [field]: value
+        };
+
+        return {
+            ...prev,
+            pastWork: updatedPastWork
+        };
+    });
+};
+const addEducation = () => {
+    setUserProfile(prev => ({
+        ...prev,
+        education: [
+            ...(prev.education || []),
+            {
+                school: "",
+                degree: "",
+                fieldOfStudy: ""
+            }
+        ]
+    }));
+};
+const handleEducationChange = (index, field, value) => {
+    setUserProfile(prev => {
+        const updatedEducation = [...prev.education];
+
+        updatedEducation[index] = {
+            ...updatedEducation[index],
+            [field]: value
+        };
+
+        return {
+            ...prev,
+            education: updatedEducation
+        };
+    });
+};
   return (
     <UserLayout>
       <DashBoardLayout>
@@ -149,25 +219,157 @@ export default function ProfilePage() {
                 :  <p>{userProfile?.bio || "No bio available"}</p>}
                
               </div>
+<div className={styles.sectionCard}>
+    <h2>Experience</h2>
 
-              <div className={styles.sectionCard}>
-                <h2>Experience</h2>
-                <div className={styles.workHistoryContainer}>
-                  {(!userProfile?.pastWork || userProfile?.pastWork.length === 0) && (
-                    <div className={styles.workHistoryCard}>
-                      <h3>No Work Experience Yet 🚀</h3>
-                    </div>
-                  )}
-                  {/* 5. Added optional chaining here */}
-                  {userProfile?.pastWork?.map((work, index) => (
-                    <div key={index} className={styles.workHistoryCard}>
-                      <h3>{work.position}</h3>
-                      <p>{work.company}</p>
-                      <span>{work.years}</span>
-                    </div>
-                  ))}
+    <div className={styles.workHistoryContainer}>
+
+        {userProfile?.pastWork?.length === 0 && !editNow && (
+            <div className={styles.workHistoryCard}>
+                <h3>No Work Experience Yet 🚀</h3>
+            </div>
+        )}
+
+        {userProfile?.pastWork?.filter(work => work.position || work.company || work.years || editNow).map((work, index) => (
+            <div key={index} className={styles.workHistoryCard}>
+
+                {editNow ? (
+                    <>
+                        <input
+                            className={styles.editInput}
+                            placeholder="Position"
+                            value={work.position}
+                            onChange={(e) =>
+                                handleExperienceChange(
+                                    index,
+                                    "position",
+                                    e.target.value
+                                )
+                            }
+                        />
+
+                        <input
+                            className={styles.editInput}
+                            placeholder="Company"
+                            value={work.company}
+                            onChange={(e) =>
+                                handleExperienceChange(
+                                    index,
+                                    "company",
+                                    e.target.value
+                                )
+                            }
+                        />
+
+                        <input
+                            className={styles.editInput}
+                            placeholder="Years"
+                            value={work.years}
+                            onChange={(e) =>
+                                handleExperienceChange(
+                                    index,
+                                    "years",
+                                    e.target.value
+                                )
+                            }
+                        />
+                    </>
+                ) : (
+                    <>
+                        <h3>{work.position}</h3>
+                        <p>{work.company}</p>
+                        <span>{work.years}</span>
+                    </>
+                )}
+
+            </div>
+        ))}
+
+        {editNow && (
+            <button
+                className={styles.addExperienceButton}
+                onClick={addExperience}
+            >
+                + Add Experience
+            </button>
+        )}
+
+    </div>
+</div>
+
+<div className={styles.sectionCard}>
+    <h2>Education</h2>
+
+    <div className={styles.workHistoryContainer}>
+
+        {userProfile?.education
+            ?.filter(edu => edu.school || edu.degree || edu.fieldOfStudy || editNow)
+            ?.map((edu, index) => (
+
+                <div key={index} className={styles.workHistoryCard}>
+
+                    {editNow ? (
+                        <>
+                            <input
+                                className={styles.editInput}
+                                placeholder="School"
+                                value={edu.school}
+                                onChange={(e) =>
+                                    handleEducationChange(
+                                        index,
+                                        "school",
+                                        e.target.value
+                                    )
+                                }
+                            />
+
+                            <input
+                                className={styles.editInput}
+                                placeholder="Degree"
+                                value={edu.degree}
+                                onChange={(e) =>
+                                    handleEducationChange(
+                                        index,
+                                        "degree",
+                                        e.target.value
+                                    )
+                                }
+                            />
+
+                            <input
+                                className={styles.editInput}
+                                placeholder="Field Of Study"
+                                value={edu.fieldOfStudy}
+                                onChange={(e) =>
+                                    handleEducationChange(
+                                        index,
+                                        "fieldOfStudy",
+                                        e.target.value
+                                    )
+                                }
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <h3>{edu.school}</h3>
+                            <p>{edu.degree}</p>
+                            <span>{edu.fieldOfStudy}</span>
+                        </>
+                    )}
+
                 </div>
-              </div>
+            ))}
+
+        {editNow && (
+            <button
+                className={styles.addExperienceButton}
+                onClick={addEducation}
+            >
+                + Add Education
+            </button>
+        )}
+    </div>
+</div>
 
               {/* Recent Activity */}
               <div className={styles.sectionCard}>
