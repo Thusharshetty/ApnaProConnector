@@ -32,26 +32,30 @@ export default function Discover() {
           <h1 className={styles.discoverTitle}>
     Discover
 </h1>
-          <div className={styles.discoverContainer}>
-            {authState.all_profileFetched && authState.allUser.filter(user => user.userId).map((user) => {
-              return (
-                <div key={user._id} className={styles.userCard}
-                   onClick={()=>{
-                    router.push(`/view_profile/${user.userId.userName}`)
-                   }}>
-                  <img
-                    src={`${BASEEURL}/${user.userId.profilePicture}`}
-                    alt=""
-                  />
+          {authState.all_profileFetched &&
+        authState.allUser
+    .filter(user => user.userId) // remove null users
+    .filter(user => user.userId._id !== authState.user?.userId?._id) // remove current user
+    .map((user) => (
+      <div
+        key={user._id}
+        className={styles.userCard}
+        onClick={() => {
+          router.push(`/view_profile/${user.userId.userName}`);
+        }}
+      >
+        <img
+          src={`${BASEEURL}/${user.userId.profilePicture}`}
+          alt=""
+        />
 
-                  <div className={styles.userInfo}>
-                    <h2>{user.userId.name}</h2>
-                    <p>@{user.userId.userName}</p>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+        <div className={styles.userInfo}>
+          <h2>{user.userId.name}</h2>
+          <p>@{user.userId.userName}</p>
+        </div>
+      </div>
+    ))
+}
         </div>
       </DashBoardLayout>
     </UserLayout>

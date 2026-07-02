@@ -17,7 +17,7 @@ export default function UserLayout({ children }) {
         </div>
 
         {authState.profileFetched &&
-          <div className="d-flex align-items-center gap-3">
+          <div className={`d-flex align-items-center gap-3 ${styles.navActions}`}>
             {authState.profileFetched && authState.user?.userId?.name && (
               <p className={`${styles.welcome} text-center`}>
                 Welcome, <span style={{ color: "#004182" }}>{authState.user.userId.name}!</span>
@@ -35,7 +35,7 @@ export default function UserLayout({ children }) {
           </div>
         }
         {!authState.profileFetched &&
-          <div className="d-flex align-items-center gap-3">
+          <div className={`d-flex align-items-center gap-3 ${styles.navActions}`}>
             <button className={styles.loginBtn}
               onClick={() => route.push("/login")}
             >Login</button>

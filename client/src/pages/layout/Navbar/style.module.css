@@ -55,3 +55,57 @@
     color:#0077B5;
     transform: translateY(-2px)
 }
+
+
+@media (max-width:992px) {
+     .heading span{
+        font-size:1.3rem;
+    }
+    .welcome{
+        font-size:1rem;
+    }
+    .loginBtn,
+    .signupBtn{
+        padding:7px 16px;
+        font-size:.95rem;
+    }
+ 
+}
+@media (max-width:768px){
+    .welcome{
+        display:none;
+    }
+    .heading span{
+        font-size:1.3rem;
+    }
+    .loginBtn,
+    .signupBtn{
+        padding:8px 16px;
+        font-size:.9rem;
+    }
+    .logout{
+        font-size:.9rem;
+    }
+    .navActions{
+        gap:.8rem !important;
+    }
+}
+@media (max-width:768px){
+    .welcome{
+        display:none;
+    }
+    .heading span{
+        font-size:1.3rem;
+    }
+    .loginBtn,
+    .signupBtn{
+        padding:8px 16px;
+        font-size:.9rem;
+    }
+    .logout{
+        font-size:.9rem;
+    }
+    .navActions{
+        gap:.8rem !important;
+    }
+}
