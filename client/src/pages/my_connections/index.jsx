@@ -36,7 +36,7 @@ export default function MyConnections() {
   return (
     <UserLayout>
       <DashBoardLayout>
-        <div style={{display:"flex", flexDirection:"column", gap:"1.5rem"}}>
+        <div style={{display:"flex", flexDirection:"column", gap:"1.5rem"}} className={styles.myConnectionsContainer}>
           <h1>MyConnections</h1>
           {authState.connectionRequests.length ===0 && <div> <h1 style={{color:"burlywood"}}> No Connection request</h1></div>}
           {authState.connectionRequests.length !==0 && authState.connectionRequests.filter((connection)=> connection.status_accepted === null).map((user,index)=>{

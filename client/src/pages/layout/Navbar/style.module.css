@@ -90,22 +90,19 @@
         gap:.8rem !important;
     }
 }
-@media (max-width:768px){
+@media (max-width:480px){
     .welcome{
         display:none;
     }
     .heading span{
-        font-size:1.3rem;
+        font-size:1.15rem;
     }
     .loginBtn,
     .signupBtn{
-        padding:8px 16px;
-        font-size:.9rem;
+        padding:7px 14px;
+        font-size:.85rem;
     }
     .logout{
-        font-size:.9rem;
-    }
-    .navActions{
-        gap:.8rem !important;
+        font-size:.85rem;
     }
 }

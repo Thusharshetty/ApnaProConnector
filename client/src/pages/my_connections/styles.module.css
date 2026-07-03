@@ -1,3 +1,7 @@
+.myConnectionsContainer{
+    animation: fadeIn .8s ease;
+}
+
 .userCard{
     display: flex;
     width: 100%;
@@ -20,4 +24,15 @@
 }
 .AcceptBtn:hover{
     background:#004182; 
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -132,9 +132,10 @@
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
-        margin-top: 3rem;
-        height: auto;
-        min-height: auto;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem auto;  
+        min-height: 80vh;
     }
 
     .container_left {
@@ -147,6 +148,8 @@
 
     .form {
         max-width: 100%;
+        max-width: 340px;
+        margin: 0 auto;  
     }
 }
 
