@@ -18,8 +18,8 @@ export default function DashBoardLayout({ children }) {
     }, []);
     return (
         <div className='container mt-4'>
-            <div className={`row ${styles.home_container}`}>
-                <div className={`col-md-3 ${styles.homecontainer_leftBar}`}>
+            <div className={`row justify-content-center ${styles.home_container}`}>
+               <div className={`col-lg-3 d-none d-lg-block ${styles.homecontainer_leftBar}`}>
                     <div onClick={()=>{
                         route.push("/dashboard");
                     }} className={`${styles.sideBarOptions} ${route.pathname==="/dashboard" && styles.active}`}>
@@ -48,10 +48,10 @@ export default function DashBoardLayout({ children }) {
                     </div>
 
                 </div>
-                <div className={`col-md-6 ${styles.feedContainer}`}>
+                <div className={`col-12 col-lg-6 ${styles.feedContainer}`}>
                     {children}
                 </div>
-               <div className={`col-md-3 ${styles.extraContainer}`}>
+               <div className={`col-lg-3 col-md-12  ${styles.extraContainer}`}>
     <h3>Top Profiles</h3>
     {authState.all_profileFetched && authState.allUser?.map((profileInstance) => {
         return (
