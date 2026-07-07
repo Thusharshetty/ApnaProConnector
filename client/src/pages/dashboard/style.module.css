@@ -488,10 +488,9 @@ Comments popup.HomeComponent {
         height: 18px;
     }
 }
-/* ADDED: mobile-specific comment popup styling */
 @media (max-width: 576px) {
     .allcommentsContainer {
-        width: 92vw;      /* was 45vw — way too narrow on phones */
+        width: 92vw;    
         height: 85vh;
         padding: 1rem;
         border-radius: 16px;
