@@ -1,7 +1,7 @@
 const { default:axios} = require('axios');
 
 
-export const BASEEURL='http://localhost:5000';
+export const BASEEURL='https://apnaproconnector.onrender.com';
 
 export const clientServer=axios.create({
     baseURL:BASEEURL
