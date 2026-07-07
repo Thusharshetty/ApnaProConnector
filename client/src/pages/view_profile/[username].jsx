@@ -37,7 +37,7 @@ export default function ViewProfilePage({userProfile}) {
  },[postReducer.posts]);
 
  useEffect(()=>{
-   console.log(authState.connections,userProfile.userId._id);
+  //  console.log(authState.connections,userProfile.userId._id);
    if(authState.connections.some(user=>user.connectionId._id === userProfile.userId._id)){
      setIsCurrentUserInConnection(true);
      if(authState.connections.find(user=>user.connectionId._id === userProfile.userId._id).status_accepted === true){
@@ -215,8 +215,8 @@ export default function ViewProfilePage({userProfile}) {
 }
 
 export async function getServerSideProps(context) {
-  console.log("HIII!!");
-  console.log(context.query.username);
+  // console.log("HIII!!");
+  // console.log(context.query.username);
 
   const req= await clientServer.get("/user/get_profile_by_userName",{
     params:{
@@ -225,6 +225,6 @@ export async function getServerSideProps(context) {
   });
 
   const res= await req.data;
-  console.log(res);
+  // console.log(res);
   return { props: {userProfile:req.data.profile} }
 }

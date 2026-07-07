@@ -27,7 +27,7 @@ export default function MyConnections() {
 
   useEffect(()=>{
     if(authState.connectionRequests !==0){
-      console.log(authState.connectionRequests);
+      // console.log(authState.connectionRequests);
       
     }
 

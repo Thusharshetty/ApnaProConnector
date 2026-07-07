@@ -140,6 +140,9 @@
   .feedContainer {
     padding: 0 0.25rem; 
   }
+  .extraContainer {
+    display: none; 
+  }
 }
 
 @media (min-width: 993px) {

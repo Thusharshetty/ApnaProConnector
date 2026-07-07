@@ -148,6 +148,10 @@ Comments popup.HomeComponent {
     object-fit: cover;
     border-radius: 15px;
 }
+.singleCard_profile >  div {
+    flex: 1;
+    min-width: 0;
+}
 
 .postName {
     margin: 0;
@@ -173,6 +177,7 @@ Comments popup.HomeComponent {
     color: #ff4d4f;
     cursor: pointer;
     transition: .3s;
+    flex-shrink: 0; 
 }
 
 #deleteIcon:hover {
@@ -432,5 +437,107 @@ Comments popup.HomeComponent {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 576px) {
+    .singleCard {
+        padding: 0.75rem;
+        border-radius: 16px;
+    }
+
+    .singleCard_profile {
+        padding: 0.9rem;
+        gap: 0.8rem;
+    }
+
+    .singleCard_profile > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .postName {
+        font-size: 0.95rem;
+    }
+
+    .postUsername {
+        font-size: 0.8rem;
+    }
+
+    .postBody {
+        font-size: 14px;
+        margin-top: 6px;
+    }
+
+    .optionsContainer {
+        padding-top: 0.6rem;
+        margin-top: 0.6rem;
+    }
+
+    .singleOptions_optionsContainer {
+        width: auto;        
+        flex: 1;             
+        padding: 0.5rem 0.25rem;
+        gap: 0.3rem;
+        font-size: 0.85rem;
+        white-space: nowrap; /* keeps "1 Likes" / "Comments" / "Share" on one line */
+    }
+
+    .singleOptions_optionsContainer svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+/* ADDED: mobile-specific comment popup styling */
+@media (max-width: 576px) {
+    .allcommentsContainer {
+        width: 92vw;      /* was 45vw — way too narrow on phones */
+        height: 85vh;
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .commentHeader h2 {
+        font-size: 1.2rem;
+    }
+
+    .singleComment {
+        padding: 0.7rem 0.8rem;
+    }
+
+    .singleComment__profileContainer img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .commentUserHeader h4 {
+        font-size: 0.9rem;
+    }
+
+    .commentUserHeader span {
+        font-size: 0.8rem;
+    }
+
+    .commentBody {
+        font-size: 0.85rem;
+    }
+
+    .postcommentContainer {
+        gap: 0.5rem;
+    }
+
+    .postcommentContainer input {
+        flex: 1;
+        min-width: 0;        /* lets it shrink instead of disappearing/collapsing */
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .postcommentContainer_Btn {
+        flex: none;           /* was flex: .15 — caused button to squish/expand oddly */
+        width: auto;
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
     }
 }

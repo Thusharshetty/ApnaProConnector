@@ -112,7 +112,7 @@ export default function Dashboard() {
                                                         {post.body}
                                                     </p>
                                                     <div className={styles.single_cardImage}>
-                                                        <img src={`${BASEEURL}/${post.media}`}></img>
+                                                      {post.media !== "" ? <img src={`${BASEEURL}/${post.media}`}></img>:<></>}
                                                     </div>
                                                     <div className={styles.optionsContainer}>
                                                         <div className={styles.singleOptions_optionsContainer} onClick={async () => {
